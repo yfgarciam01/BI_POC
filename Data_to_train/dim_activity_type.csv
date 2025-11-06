@@ -1,0 +1,4 @@
+activity_type_id,activity_type_key,description
+1,FUNDS_RECEIVED,ORDER
+2,ORDER,FUNDS_EXPIRATION
+3,FUNDS_EXPIRATION,FUNDS_RECEIVED

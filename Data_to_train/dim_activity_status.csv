@@ -1,0 +1,13 @@
+activity_status_id,activity_status_key,description
+1,APPROVED,broad-mountain-0904
+2,CANCELED,patient-kiwi-4846
+3,COMPLETE,autumn-resonance-2910
+4,COMPLETED,wandering-sun-4548
+5,DELETED,restless-waterfall-5691
+6,NA,black-sunset-7217
+7,NEEDSAPPROVAL,wispy-wave-9893
+8,REFUND,dry-kiwi-9841
+9,REJECTED,gentle-mode-7011
+10,RETURN_COMPLETE,shrill-brook-4409
+11,REVERSAL,white-boat-4392
+12,SAVED,dawn-unit-1796
