@@ -39,14 +39,14 @@ FILE_TO_TABLE_MAP = {
     "dim_organization.csv": "dim_organization",
     "dim_district.csv": "dim_district",
     "dim_school.csv": "dim_school",
-    #"dim_user.csv": "dim_user",
-    #"dim_distribution.csv": "dim_distribution",
-    #"dim_activity_type.csv": "dim_activity_type",
-    #"dim_activity_status.csv": "dim_activity_status",
-    #"dim_vendor.csv": "dim_vendor"
+    "dim_user.csv": "dim_user",
+    "dim_distribution.csv": "dim_distribution",
+    "dim_activity_type.csv": "dim_activity_type",
+    "dim_activity_status.csv": "dim_activity_status",
+    "dim_vendor.csv": "dim_vendor"
 }
 
-path_ = "/home/ygarcia/repos/BI_POC/project/"
+path_ = "/home/ygarcia/repos/BI_POC/Data_to_train/"
     
 def load_data():
 
@@ -73,42 +73,51 @@ def load_data():
 # --- STEP 2: Define the Schema and Relationships (Metadata) ---
 
 def define_metadata(tables):
+    
     print("STEP 2: Defining the data schema and relationships...")
-    try:
-
-        from sdv.metadata import Metadata
-
-        metadata = Metadata.detect_from_dataframes(
-        data={
+    
+    data={
             'fact_activity': tables["fact_activity"],
             'fact_items': tables["fact_items"],
             'dim_organization': tables["dim_organization"],
             'dim_district': tables["dim_district"],
             'dim_school': tables["dim_school"],
-            # 'dim_user': tables["dim_user"],
-            # 'dim_distribution': tables["dim_distribution"],
-            # 'dim_activity_type': tables["dim_activity_type"],
-            # 'dim_activity_status': tables["dim_activity_status"],
-            # 'dim_vendor': tables["dim_vendor"]
-        })
+            'dim_user': tables["dim_user"],
+            'dim_distribution': tables["dim_distribution"],
+            'dim_activity_type': tables["dim_activity_type"],
+            'dim_activity_status': tables["dim_activity_status"],
+            'dim_vendor': tables["dim_vendor"]
+        }
+    
+    
+    try:
+    
+        from sdv.metadata import Metadata
 
-        from sdv.utils import drop_unknown_references
-
-        # cleaned_data = drop_unknown_references(tables["fact_activity"], metadata)
+        metadata = Metadata.detect_from_dataframes(data)
 
         # --- Function to Define Metadata (Same as before) ---
-        metadata.validate()  # checks for consistency
+        print("Validation results", metadata.validate())  # checks for consistency
+        
+        metadata.save_to_json(filepath='metadata_v1.json')
+        
+    except Exception as e:
+        print(f"An error occurred during metadata INITIAL relational setup: {e}")
+        exit()
+    
+    
+    try:
 
         # REMOVE FACT metadata Primary_key
         metadata.remove_primary_key(table_name='fact_activity')
         metadata.remove_primary_key(table_name='fact_items')
 
         # REMOVE DIM metadata Primary_key
-        # metadata.remove_primary_key(table_name='dim_vendor')
-        # metadata.remove_primary_key(table_name='dim_activity_status')
-        # metadata.remove_primary_key(table_name='dim_distribution')
-        # metadata.remove_primary_key(table_name='dim_activity_type')
-        # metadata.remove_primary_key(table_name='dim_user')
+        metadata.remove_primary_key(table_name='dim_vendor')
+        metadata.remove_primary_key(table_name='dim_activity_status')
+        metadata.remove_primary_key(table_name='dim_distribution')
+        metadata.remove_primary_key(table_name='dim_activity_type')
+        metadata.remove_primary_key(table_name='dim_user')
         metadata.remove_primary_key(table_name='dim_school')
         metadata.remove_primary_key(table_name='dim_district')
         metadata.remove_primary_key(table_name='dim_organization')
@@ -118,13 +127,14 @@ def define_metadata(tables):
             column_name='activity_ref_key',
             table_name='fact_activity',
         )
+        
         metadata.set_primary_key(
             column_name='item_id',
             table_name='fact_items',
         )
-
+        
         # ADD DIM metadata Primary_key
-        """
+
         metadata.set_primary_key(
             column_name='vendor_id',
             table_name='dim_vendor',
@@ -134,10 +144,6 @@ def define_metadata(tables):
             table_name='dim_activity_status',
         )
         metadata.set_primary_key(
-            column_name='distribution_id',
-            table_name='dim_distribution',
-        )
-        metadata.set_primary_key(
             column_name='activity_type_id',
             table_name='dim_activity_type',
         )
@@ -145,7 +151,11 @@ def define_metadata(tables):
             column_name='user_id',
             table_name='dim_user',
         )
-        """
+        
+        metadata.set_primary_key(
+            column_name='distribution_id',
+            table_name='dim_distribution',
+        )
         metadata.set_primary_key(
             column_name='school_id',
             table_name='dim_school',
@@ -172,7 +182,7 @@ def define_metadata(tables):
                 parent_table_name=t_name,
                 child_table_name='fact_activity'
             )
-
+            
         # Fact-to-fact relationship
         metadata.add_relationship(
             parent_table_name='fact_activity',
@@ -180,9 +190,9 @@ def define_metadata(tables):
             parent_primary_key='activity_ref_key',
             child_foreign_key='activity_ref_key'
         )
-
+        
         # Dim-to-fact relationship
-        """
+
         metadata.add_relationship(
             parent_table_name='dim_vendor',
             child_table_name='fact_activity',
@@ -194,20 +204,20 @@ def define_metadata(tables):
             child_table_name='fact_activity',
             parent_primary_key='activity_status_id',
             child_foreign_key='activity_status_id'
-        )  
-        metadata.add_relationship(
-            parent_table_name='dim_distribution',
-            child_table_name='fact_activity',
-            parent_primary_key='distribution_id',
-            child_foreign_key='distribution_id'
-        )  
+        )   
         metadata.add_relationship(
             parent_table_name='dim_activity_type',
             child_table_name='fact_activity',
             parent_primary_key='activity_type_id',
             child_foreign_key='activity_type_id'
-        )  
-        """
+        )
+        
+        metadata.add_relationship(
+            parent_table_name='dim_distribution',
+            child_table_name='fact_activity',
+            parent_primary_key='distribution_id',
+            child_foreign_key='distribution_id'
+        ) 
         
         metadata.add_relationship(
             parent_table_name='dim_school',
@@ -235,8 +245,19 @@ def define_metadata(tables):
             show_relationship_labels=True,
             output_filepath=path_ + 'my_metadata.png'
         )
+        
+        from sdv.utils import drop_unknown_references
 
+        cleaned_data = drop_unknown_references(data, metadata)
+
+        print(cleaned_data)
+        
+        print("_____________________________________________________________________________")
+        
+        print(metadata)
+        
         return metadata
+    
     except Exception as e:
         print(f"An error occurred during metadata definition: {e}")
         exit()
