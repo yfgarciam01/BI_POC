@@ -137,6 +137,59 @@
                 }
             }
         },
+        "fact_items": {
+            "primary_key": "item_id",
+            "columns": {
+                "activity_ref_key": {
+                    "sdtype": "id"
+                },
+                "item_id": {
+                    "sdtype": "id"
+                },
+                "item_idx": {
+                    "sdtype": "numerical"
+                },
+                "description": {
+                    "sdtype": "categorical"
+                },
+                "quantity": {
+                    "sdtype": "numerical"
+                },
+                "price": {
+                    "sdtype": "numerical"
+                },
+                "classification": {
+                    "sdtype": "categorical"
+                },
+                "classificationDomain": {
+                    "sdtype": "categorical"
+                },
+                "supplierPartID": {
+                    "sdtype": "categorical"
+                },
+                "manufacturerPartID": {
+                    "sdtype": "categorical"
+                },
+                "manufacturerName": {
+                    "sdtype": "categorical"
+                },
+                "sku": {
+                    "sdtype": "categorical"
+                },
+                "item_expense_category_id": {
+                    "sdtype": "numerical"
+                },
+                "allowable_status": {
+                    "sdtype": "numerical"
+                },
+                "classification_confidence": {
+                    "sdtype": "numerical"
+                },
+                "unspsc_name": {
+                    "sdtype": "categorical"
+                }
+            }
+        },
         "dim_organization": {
             "primary_key": "organization_id",
             "columns": {
@@ -480,6 +533,12 @@
         }
     },
     "relationships": [
+        {
+            "parent_table_name": "fact_activity",
+            "child_table_name": "fact_items",
+            "parent_primary_key": "activity_ref_key",
+            "child_foreign_key": "activity_ref_key"
+        },
         {
             "parent_table_name": "dim_organization",
             "child_table_name": "fact_activity",
