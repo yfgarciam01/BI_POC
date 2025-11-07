@@ -93,15 +93,12 @@ def define_metadata(tables):
     try:
     
         from sdv.metadata import Metadata
-
-        metadata = Metadata.detect_from_dataframes(data)
+        
+        metadata = Metadata.load_from_json(filepath=path_ + 'metadata_v1_copy.json')
 
         # --- Function to Define Metadata (Same as before) ---
         print("Validation results", metadata.validate())  # checks for consistency
         
-        metadata.save_to_json(filepath=path_ + 'metadata_v1.json')
-        
-        """
         # Export data MER
         metadata.visualize(
             show_table_details='full',
@@ -109,12 +106,15 @@ def define_metadata(tables):
             output_filepath=path_ + 'my_metadata.png'
         )
         
+        missing_refs = set(tables['fact_items']['activity_ref_key']) - set(tables['fact_activity']['activity_ref_key'])
+        
+        print(f"Missing references in fact_items: {len(missing_refs)}")
+
         from sdv.utils import drop_unknown_references
 
         cleaned_data = drop_unknown_references(data, metadata)
 
         return metadata        
-        """
         
     except Exception as e:
         print(f"An error occurred during metadata INITIAL relational setup: {e}")
