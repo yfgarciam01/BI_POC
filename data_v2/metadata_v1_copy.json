@@ -1,0 +1,350 @@
+{
+    "tables": {
+        "fact_activity": {
+            "primary_key": "activity_ref_key",
+            "columns": {
+                "activity_ts": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "organization_id": {
+                    "sdtype": "id"
+                },
+                "district_id": {
+                    "sdtype": "id"
+                },
+                "school_id": {
+                    "sdtype": "id"
+                },
+                "user_id": {
+                    "sdtype": "id"
+                },
+                "user_id_from": {
+                    "sdtype": "numerical"
+                },
+                "distribution_id": {
+                    "sdtype": "id"
+                },
+                "distribution_id_from": {
+                    "sdtype": "numerical"
+                },
+                "activity_type_id": {
+                    "sdtype": "id"
+                },
+                "activity_ref_key": {
+                    "sdtype": "id"
+                },
+                "activity_detail_idx": {
+                    "sdtype": "numerical"
+                },
+                "activity_sub_type_id": {
+                    "sdtype": "numerical"
+                },
+                "activity_status_id": {
+                    "sdtype": "id"
+                },
+                "vendor_id": {
+                    "sdtype": "id"
+                },
+                "transaction_key": {
+                    "sdtype": "categorical"
+                },
+                "vendor_order_key": {
+                    "sdtype": "categorical"
+                },
+                "vendor_purchase_order_number": {
+                    "sdtype": "categorical"
+                },
+                "description": {
+                    "sdtype": "categorical"
+                },
+                "amount": {
+                    "sdtype": "numerical"
+                },
+                "total_amount": {
+                    "sdtype": "numerical"
+                },
+                "shipping": {
+                    "sdtype": "numerical"
+                },
+                "fees": {
+                    "sdtype": "numerical"
+                },
+                "tax": {
+                    "sdtype": "numerical"
+                },
+                "discount": {
+                    "sdtype": "numerical"
+                },
+                "vendor_cogs_discount": {
+                    "sdtype": "numerical"
+                },
+                "updated": {
+                    "sdtype": "categorical"
+                },
+                "updated_date": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "authorizenet_transId": {
+                    "sdtype": "categorical"
+                },
+                "invoiceAchDataId": {
+                    "sdtype": "categorical"
+                },
+                "distributionVendorName": {
+                    "sdtype": "categorical"
+                },
+                "created_date": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "submitted_date": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "completed_date": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "modified_date": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "prepaidStatus": {
+                    "sdtype": "categorical"
+                },
+                "original_amount": {
+                    "sdtype": "numerical"
+                },
+                "is_autoprocessed": {
+                    "sdtype": "categorical"
+                },
+                "req_transaction_token": {
+                    "sdtype": "categorical"
+                },
+                "is_on_hold": {
+                    "sdtype": "categorical"
+                },
+                "is_incomplete": {
+                    "sdtype": "categorical"
+                },
+                "user_ip": {
+                    "sdtype": "categorical"
+                },
+                "order_return": {
+                    "sdtype": "categorical"
+                }
+            }
+        },
+        "fact_items": {
+            "primary_key": "item_id",
+            "columns": {
+                "activity_ref_key": {
+                    "sdtype": "id"
+                },
+                "item_id": {
+                    "sdtype": "id"
+                },
+                "item_idx": {
+                    "sdtype": "numerical"
+                },
+                "description": {
+                    "sdtype": "categorical"
+                },
+                "quantity": {
+                    "sdtype": "numerical"
+                },
+                "price": {
+                    "sdtype": "numerical"
+                },
+                "classification": {
+                    "sdtype": "categorical"
+                },
+                "classificationDomain": {
+                    "sdtype": "categorical"
+                },
+                "supplierPartID": {
+                    "sdtype": "categorical"
+                },
+                "manufacturerPartID": {
+                    "sdtype": "categorical"
+                },
+                "manufacturerName": {
+                    "sdtype": "categorical"
+                },
+                "sku": {
+                    "sdtype": "categorical"
+                },
+                "item_expense_category_id": {
+                    "sdtype": "numerical"
+                },
+                "allowable_status": {
+                    "sdtype": "numerical"
+                },
+                "classification_confidence": {
+                    "sdtype": "numerical"
+                },
+                "unspsc_name": {
+                    "sdtype": "categorical"
+                }
+            }
+        },
+        "dim_organization": {
+            "primary_key": "organization_id",
+            "columns": {
+                "organization_id": {
+                    "sdtype": "id"
+                },
+                "organization_key": {
+                    "sdtype": "categorical"
+                },
+                "name": {
+                    "sdtype": "categorical"
+                },
+                "address": {
+                    "sdtype": "categorical"
+                },
+                "city": {
+                    "sdtype": "categorical"
+                },
+                "state": {
+                    "sdtype": "categorical"
+                },
+                "zip": {
+                    "sdtype": "categorical"
+                },
+                "type": {
+                    "sdtype": "categorical"
+                },
+                "bank_account": {
+                    "sdtype": "categorical"
+                },
+                "created_dtm": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                }
+            }
+        },
+        "dim_user": {
+            "primary_key": "user_id",
+            "columns": {
+                "user_id": {
+                    "sdtype": "id"
+                },
+                "user_key": {
+                    "sdtype": "categorical"
+                },
+                "first_name": {
+                    "sdtype": "categorical"
+                },
+                "last_name": {
+                    "sdtype": "categorical"
+                },
+                "email_address": {
+                    "sdtype": "categorical"
+                },
+                "normalized_name": {
+                    "sdtype": "categorical"
+                },
+                "organization_key": {
+                    "sdtype": "categorical"
+                },
+                "role_type": {
+                    "sdtype": "categorical"
+                },
+                "treasuryId": {
+                    "sdtype": "categorical"
+                },
+                "last_login": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "status": {
+                    "sdtype": "categorical"
+                },
+                "updated_date": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "imported_date": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "date_registered": {
+                    "datetime_format": "%Y-%m-%d %H:%M:%S",
+                    "sdtype": "datetime"
+                },
+                "card_id": {
+                    "sdtype": "categorical"
+                },
+                "employee_id": {
+                    "sdtype": "categorical"
+                },
+                "parent_key": {
+                    "sdtype": "categorical"
+                },
+                "sensitive_username": {
+                    "sdtype": "categorical"
+                },
+                "parent_first_name": {
+                    "sdtype": "categorical"
+                },
+                "parent_last_name": {
+                    "sdtype": "categorical"
+                },
+                "shipping_address": {
+                    "sdtype": "categorical"
+                },
+                "shipping_address2": {
+                    "sdtype": "categorical"
+                },
+                "shipping_city": {
+                    "sdtype": "categorical"
+                },
+                "shipping_state": {
+                    "sdtype": "categorical"
+                },
+                "shipping_zip": {
+                    "sdtype": "categorical"
+                },
+                "is_direct_pay_user": {
+                    "sdtype": "categorical"
+                },
+                "is_direct_pay_admin": {
+                    "sdtype": "categorical"
+                },
+                "is_direct_pay_license_admin": {
+                    "sdtype": "categorical"
+                },
+                "user_district_key": {
+                    "sdtype": "categorical"
+                },
+                "user_school_key": {
+                    "sdtype": "categorical"
+                }
+            }
+        }
+    },
+    "relationships": [
+        {
+            "parent_table_name": "fact_activity",
+            "child_table_name": "fact_items",
+            "parent_primary_key": "activity_ref_key",
+            "child_foreign_key": "activity_ref_key"
+        },
+        {
+            "parent_table_name": "dim_organization",
+            "child_table_name": "fact_activity",
+            "parent_primary_key": "organization_id",
+            "child_foreign_key": "organization_id"
+        },
+        {
+            "parent_table_name": "dim_user",
+            "child_table_name": "fact_activity",
+            "parent_primary_key": "user_id",
+            "child_foreign_key": "user_id"
+        }
+    ],
+    "METADATA_SPEC_VERSION": "V1"
+}
