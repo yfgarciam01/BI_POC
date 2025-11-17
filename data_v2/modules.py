@@ -39,10 +39,15 @@ def export_to_csv_from_df(df, base_path, table_name, batch_size):
 if __name__ == '__main__':
     try:
         
-        df_= pd.read_parquet('/home/ygarcia/repos/BI_POC/data_v2/data_gen/synthetic_fact_items.parquet')
-        path_ = "/home/ygarcia/repos/BI_POC/data_v2/data_gen/fact_dist_items"
+        df_1= pd.read_parquet('/home/ygarcia/repos/BI_POC/data_v2/data_gen/synthetic_fact_activity.parquet')
+        path_1 = "/home/ygarcia/repos/BI_POC/data_v2/data_gen/fact_dist_activity"
         
-        export_to_csv_from_df(df_, path_, 'fact_distribution_activity_items', 400000)
+        export_to_csv_from_df(df_1, path_1, 'fact_distribution_activity', 200000)
+                
+        df_2= pd.read_parquet('/home/ygarcia/repos/BI_POC/data_v2/data_gen/synthetic_fact_items.parquet')
+        path_2 = "/home/ygarcia/repos/BI_POC/data_v2/data_gen/fact_dist_items"
+        
+        export_to_csv_from_df(df_2, path_2, 'fact_distribution_activity_items', 300000)
         
     except Exception as e:
         logging.info(f"\nAN UNEXPECTED ERROR: {e}")
