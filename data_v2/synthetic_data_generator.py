@@ -129,8 +129,8 @@ def model_trainig(cleaned_data, model_metadata):
     
     from sdv.single_table import GaussianCopulaSynthesizer
     
-    fact_activity_model = GaussianCopulaSynthesizer(model_metadata.tables['fact_activity'])
-    fact_activity_model.fit(cleaned_data['fact_activity'])
+    # fact_activity_model = GaussianCopulaSynthesizer(model_metadata.tables['fact_activity'])
+    # fact_activity_model.fit(cleaned_data['fact_activity'])
     
     fact_items_model = GaussianCopulaSynthesizer(model_metadata.tables['fact_items'])
     fact_items_model.fit(cleaned_data['fact_items'])
@@ -139,9 +139,9 @@ def model_trainig(cleaned_data, model_metadata):
 
     # STEP 4 saving data
     
-    logging.info(f"\nSaving the trained model to '{fact_activity_m}'...")
-    with open(f"{path_}/data_gen/fact_activity_model.pkl", 'wb') as f:
-        pickle.dump(fact_activity_model, f)
+    # logging.info(f"\nSaving the trained model to '{fact_activity_m}'...")
+    # with open(f"{path_}/data_gen/fact_activity_model.pkl", 'wb') as f:
+    #    pickle.dump(fact_activity_model, f)
 
     logging.info(f"\nSaving the trained model to '{fact_items_m}'...")
     with open(f"{path_}/data_gen/fact_items_model.pkl", 'wb') as f:
